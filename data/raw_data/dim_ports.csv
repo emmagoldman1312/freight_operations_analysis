@@ -1,0 +1,19 @@
+port_id,port_name,country,region,locode,latitude,longitude,port_cluster,specialization,max_draft_m,heavy_lift_capable,avg_berth_productivity_tph,customs_risk_level
+P001,Valencia,Spain,Western Mediterranean,ESVLC,39.461,-0.323,Iberia Med,Container / RoRo / Project cargo,17.0,Y,122,Low
+P002,Barcelona,Spain,Western Mediterranean,ESBCN,41.3522,2.1686,Iberia Med,Container / RoRo,16.0,Y,115,Low
+P003,Algeciras,Spain,Strait of Gibraltar,ESALG,36.1324,-5.4479,Gibraltar Strait,Transshipment / RoRo / Container,18.5,Y,138,Low
+P004,Bilbao,Spain,Atlantic Europe,ESBIO,43.3476,-3.0443,North Iberia,Breakbulk / Steel / Project cargo,20.0,Y,91,Low
+P005,Sines,Portugal,Atlantic Europe,PTSIE,37.9543,-8.8631,West Iberia,Energy / Bulk / Container,28.0,Y,104,Low
+P006,Rotterdam,Netherlands,North Sea,NLRTM,51.947,4.142,North Sea,Container / Energy / Breakbulk,24.0,Y,151,Low
+P007,Antwerp-Bruges,Belgium,North Sea,BEANR,51.2639,4.4009,North Sea,Container / Chemicals / Project cargo,16.0,Y,129,Low
+P008,Hamburg,Germany,North Sea,DEHAM,53.545,9.966,North Sea,Container / General cargo,15.0,Y,118,Low
+P009,Marseille-Fos,France,Western Mediterranean,FRFOS,43.437,4.943,France Med,Energy / Container / Breakbulk,22.0,Y,109,Medium
+P010,Genoa,Italy,Western Mediterranean,ITGOA,44.41,8.925,Italy North,Container / RoRo / Project cargo,15.0,Y,101,Medium
+P011,Tanger Med,Morocco,Strait of Gibraltar,MAPTM,35.889,-5.501,Gibraltar Strait,Container / RoRo / Automotive,18.0,Y,132,Medium
+P012,Casablanca,Morocco,North Africa,MACAS,33.605,-7.611,North Africa,Container / General cargo,12.5,N,84,High
+P013,Le Havre,France,Atlantic Europe,FRLEH,49.49,0.108,Channel,Container / RoRo,16.0,Y,112,Low
+P014,Trieste,Italy,Adriatic,ITTRS,45.649,13.768,Adriatic,RoRo / Breakbulk / Energy,18.0,Y,97,Medium
+P015,Izmir,Turkey,Eastern Mediterranean,TRIZM,38.431,27.153,Turkey West,Container / General cargo,16.0,Y,96,Medium
+P016,Alexandria,Egypt,Eastern Mediterranean,EGALY,31.2001,29.9187,Egypt Med,Container / General cargo / Project cargo,14.0,Y,82,High
+P017,Piraeus,Greece,Eastern Mediterranean,GRPIR,37.944,23.64,Greece,Container / RoRo,18.0,Y,119,Medium
+P018,Dammam,Saudi Arabia,Arabian Gulf,SADMM,26.498,50.184,Arabian Gulf,Container / Project cargo,14.0,Y,93,High

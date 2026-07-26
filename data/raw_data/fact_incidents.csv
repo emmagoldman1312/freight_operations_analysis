@@ -1,0 +1,56 @@
+incident_id,shipment_id,incident_date,incident_type,severity,location_type,location_name,root_cause,delay_hours_impact,direct_cost_eur,claim_amount_eur,preventable_flag,corrective_action
+INC00035,SHP00035,2025-08-16,Delay,High,Road,Antwerp-Bruges,Carrier capacity,1.9,7200.55,414.12,N,Upgrade packaging specification
+INC00036,SHP00036,2025-09-28,Equipment shortage,Medium,Port,Dammam Gas Project Site,Road permit delay,26.1,2485.82,482.96,Y,Re-brief carrier SOP
+INC00039,SHP00039,2025-09-08,Cargo damage,Low,Project Site,Tarragona Equipment Vendor,Handling damage,0.0,530.55,4164.58,Y,Re-brief carrier SOP
+INC00073,SHP00073,2025-07-10,Delay,Medium,Road,Cadiz Module Yard,None,14.4,1079.55,52.86,Y,No action required
+INC00081,SHP00081,2025-03-15,Safety near miss,Low,Port,Tarragona Equipment Vendor,Port congestion,27.9,832.28,311.25,Y,Change terminal cut-off planning
+INC00125,SHP00125,2024-11-23,Customs/documentation,High,Project Site,Zaragoza Distribution Hub,Road permit delay,14.9,21922.36,4925.4,Y,Upgrade packaging specification
+INC00169,SHP00169,2025-07-23,Delay,Low,Road,Alexandria Water Project Site,Documentation issue,7.7,464.07,199.87,Y,No action required
+INC00193,SHP00193,2025-05-29,Delay,Low,Port,Sines,Customs hold,13.1,781.07,291.13,Y,Change terminal cut-off planning
+INC00201,SHP00201,2024-11-05,Customs/documentation,Low,Road,Valencia,Port congestion,32.8,721.88,85.2,N,Upgrade packaging specification
+INC00225,SHP00225,2025-03-22,Delay,Low,Port,Algeciras,Weather disruption,26.4,112.14,42.54,Y,Upgrade packaging specification
+INC00249,SHP00249,2025-07-16,Customs/documentation,Medium,Project Site,Dammam Gas Project Site,None,0.0,937.12,152.68,Y,Re-brief carrier SOP
+INC00289,SHP00289,2024-06-28,Delay,Low,Port,Bilbao,None,8.1,289.39,60.5,Y,Upgrade packaging specification
+INC00293,SHP00293,2025-09-14,Customs/documentation,Low,Road,Marseille-Fos,Port congestion,13.5,196.93,37.91,Y,Change terminal cut-off planning
+INC00328,SHP00328,2025-04-29,Delay,Medium,Project Site,Sines Energy Project Site,Carrier capacity,12.5,4453.82,374.45,Y,Upgrade packaging specification
+INC00344,SHP00344,2024-05-28,Customs/documentation,Low,Project Site,Rotterdam Consolidation Hub,None,2.8,788.12,316.77,N,Re-brief carrier SOP
+INC00354,SHP00354,2025-11-14,Delay,High,Port,Zaragoza Distribution Hub,Carrier capacity,24.3,13408.32,1029.37,N,Change terminal cut-off planning
+INC00367,SHP00367,2024-07-06,Customs/documentation,Low,Port,Sines,Customs hold,18.3,401.28,144.12,Y,Add route permit buffer
+INC00400,SHP00400,2025-05-04,Delay,Medium,Road,Sines Energy Project Site,Carrier capacity,44.5,1252.3,489.59,Y,Add route permit buffer
+INC00402,SHP00402,2025-05-31,Delay,Low,Road,Casablanca,Customs hold,7.6,558.63,232.69,Y,Change terminal cut-off planning
+INC00412,SHP00412,2024-12-06,Delay,Low,Port,Marseille Wind Substation Site,None,6.7,194.83,13.2,Y,Add route permit buffer
+INC00417,SHP00417,2025-06-05,Customs/documentation,Medium,Port,Casablanca Desalination Site,Road permit delay,24.9,2956.85,1324.69,Y,No action required
+INC00425,SHP00425,2024-09-24,Equipment shortage,Medium,Port,Sines Energy Project Site,None,2.0,2271.25,515.27,Y,Add route permit buffer
+INC00451,SHP00451,2025-02-19,Cargo damage,High,Project Site,Sines Energy Project Site,Handling damage,26.4,11648.77,12797.39,Y,Improve pre-alert documentation
+INC00463,SHP00463,2024-01-25,Delay,Low,Road,Sines Energy Project Site,None,9.4,465.93,129.55,N,Add route permit buffer
+INC00506,SHP00506,2025-04-11,Delay,Medium,Port,Dammam Gas Project Site,Port congestion,21.0,4044.34,1085.8,Y,Re-brief carrier SOP
+INC00526,SHP00526,2024-02-09,Customs/documentation,Low,Project Site,Sines Energy Project Site,None,0.0,429.06,39.5,Y,Improve pre-alert documentation
+INC00558,SHP00558,2024-11-13,Customs/documentation,High,Port,Rotterdam,Port congestion,19.8,18988.93,1883.22,Y,Upgrade packaging specification
+INC00561,SHP00561,2025-12-16,Equipment shortage,Low,Port,Puertollano Module Yard,None,9.0,779.41,68.1,Y,Upgrade packaging specification
+INC00575,SHP00575,2024-08-31,Delay,Medium,Project Site,Algeciras,None,2.8,4719.3,52.22,Y,Re-brief carrier SOP
+INC00583,SHP00583,2024-04-15,Equipment shortage,Low,Port,Rotterdam,None,0.0,163.02,40.22,N,Improve pre-alert documentation
+INC00587,SHP00587,2025-02-08,Delay,Low,Road,Alexandria Water Project Site,None,0.0,210.45,90.55,N,Upgrade packaging specification
+INC00613,SHP00613,2024-01-10,Delay,Low,Port,Zaragoza Distribution Hub,None,2.8,507.95,122.39,Y,Improve pre-alert documentation
+INC00621,SHP00621,2024-04-24,Customs/documentation,High,Port,Zaragoza Distribution Hub,None,0.0,10653.94,447.49,N,Improve pre-alert documentation
+INC00630,SHP00630,2025-10-07,Delay,Medium,Road,Tarragona Equipment Vendor,None,4.1,5316.29,1038.93,Y,Add route permit buffer
+INC00632,SHP00632,2024-12-20,Delay,Critical,Road,Tarragona Equipment Vendor,None,1.3,88149.91,9203.81,Y,Upgrade packaging specification
+INC00655,SHP00655,2025-11-25,Delay,Low,Port,Dammam,Road permit delay,9.1,161.76,20.14,Y,Improve pre-alert documentation
+INC00662,SHP00662,2025-04-29,Equipment shortage,High,Port,Dammam Gas Project Site,None,0.4,13219.93,723.13,Y,Upgrade packaging specification
+INC00682,SHP00682,2024-08-21,Customs/documentation,Low,Road,Alexandria Water Project Site,None,2.2,717.57,153.37,N,Change terminal cut-off planning
+INC00690,SHP00690,2025-05-08,Delay,Low,Road,Sines Energy Project Site,Carrier capacity,20.8,605.22,151.39,Y,Upgrade packaging specification
+INC00711,SHP00711,2025-03-31,Delay,Low,Road,Dammam Gas Project Site,None,2.6,767.54,157.31,Y,Add route permit buffer
+INC00718,SHP00718,2024-02-23,Delay,Low,Road,Tarragona Equipment Vendor,Documentation issue,7.9,533.41,212.41,Y,Change terminal cut-off planning
+INC00755,SHP00755,2024-08-10,Delay,High,Project Site,Antwerp EPC Supplier Yard,Road permit delay,25.8,9311.74,954.53,N,Re-brief carrier SOP
+INC00769,SHP00769,2024-08-22,Customs/documentation,High,Port,Zaragoza Distribution Hub,Customs hold,4.5,20002.38,4946.58,Y,Improve pre-alert documentation
+INC00795,SHP00795,2024-12-08,Customs/documentation,Medium,Road,Sines Energy Project Site,Carrier capacity,6.8,2553.2,297.01,N,Upgrade packaging specification
+INC00807,SHP00807,2025-11-06,Delay,Low,Road,Rotterdam Consolidation Hub,Weather disruption,25.7,557.46,77.3,Y,Change terminal cut-off planning
+INC00809,SHP00809,2025-07-15,Delay,Low,Road,Rotterdam Consolidation Hub,Customs hold,17.5,365.09,12.49,N,Change terminal cut-off planning
+INC00810,SHP00810,2025-12-10,Delay,Low,Road,Cadiz Module Yard,Customs hold,28.1,412.1,134.27,Y,Add route permit buffer
+INC00819,SHP00819,2025-02-26,Delay,Low,Port,Antwerp EPC Supplier Yard,Road permit delay,10.9,827.55,74.89,Y,Upgrade packaging specification
+INC00820,SHP00820,2024-05-29,Safety near miss,Low,Road,Bilbao Steel Fabricator,None,0.6,190.91,14.63,N,Change terminal cut-off planning
+INC00841,SHP00841,2025-09-07,Cargo damage,Low,Port,Antwerp EPC Supplier Yard,Handling damage,21.7,863.26,8706.41,N,Improve pre-alert documentation
+INC00851,SHP00851,2024-08-27,Customs/documentation,Low,Project Site,Algeciras,Customs hold,41.2,372.46,155.23,N,Improve pre-alert documentation
+INC00852,SHP00852,2025-09-17,Delay,Low,Port,Madrid Cross Dock,None,1.4,399.83,102.96,N,Improve pre-alert documentation
+INC00853,SHP00853,2025-03-20,Equipment shortage,Low,Road,Lyon Fabrication Partner,Customs hold,18.3,281.88,123.76,Y,Add route permit buffer
+INC00856,SHP00856,2025-11-25,Delay,Medium,Port,Valencia,None,4.9,5153.47,691.42,Y,Re-brief carrier SOP
+INC00878,SHP00878,2025-07-09,Equipment shortage,Medium,Project Site,Antwerp-Bruges,Weather disruption,14.4,4753.11,1205.65,N,Upgrade packaging specification

@@ -1,0 +1,8 @@
+project_id,project_name,sector,customer_segment,destination_facility_id,priority,start_date,planned_finish_date,contract_model,target_on_time_pct
+PRJ001,IberH2 Green Hydrogen Terminal,Energy Transition,Industrial EPC,F007,High,2024-01-15,2025-09-30,EPC,92
+PRJ002,Atlas Desalination Expansion,Water,Public Infrastructure,F008,High,2024-02-01,2025-12-15,EPC,90
+PRJ003,Rhine Refinery Turnaround,Oil and Gas,Refinery,F011,Medium,2024-03-01,2025-05-31,Maintenance,94
+PRJ004,Mediterranean Wind Substations,Renewables,Utility,F018,Medium,2024-05-10,2025-11-30,EPCI,91
+PRJ005,Alexandria Water Treatment Upgrade,Water,Public Infrastructure,F016,Medium,2024-08-05,2025-12-31,EPC,88
+PRJ006,Dammam Gas Compression Package,Oil and Gas,National Energy,F017,Critical,2024-06-20,2025-12-20,EPC,89
+PRJ007,Iberia Warehouse Replenishment,Industrial Distribution,Internal Network,F001,Low,2024-01-01,2025-12-31,Framework,95

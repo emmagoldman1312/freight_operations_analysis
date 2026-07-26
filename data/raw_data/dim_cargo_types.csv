@@ -1,0 +1,11 @@
+cargo_type_id,cargo_type,cargo_family,base_weight_tons,base_volume_cbm,hazardous_default,oversize_probability,value_density_eur_per_ton
+CG001,Valves and instruments,Mechanical,5,18,N,0.03,68000
+CG002,Pipe spools,Piping,18,72,N,0.22,9200
+CG003,Electrical panels,Electrical,8,42,N,0.1,44000
+CG004,Heat exchanger,Static Equipment,62,180,N,0.75,21000
+CG005,Pump skid,Rotating Equipment,28,110,N,0.42,32000
+CG006,Structural steel,Steel,35,95,N,0.36,5200
+CG007,Cable drums,Electrical,12,36,N,0.08,19000
+CG008,Modular unit,Modules,86,520,N,0.94,26000
+CG009,Industrial chemicals,Consumables,16,28,Y,0.02,7800
+CG010,Critical spare parts,Spares,3,10,N,0.01,125000

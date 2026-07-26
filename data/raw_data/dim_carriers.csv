@@ -1,0 +1,13 @@
+carrier_id,carrier_name,mode,specialization,country_base,contract_type,reliability_score,cost_tier,co2_rating
+CAR001,Iberia Heavy Haul,Road,Oversize road transport,Spain,Frame Agreement,88,Premium,C
+CAR002,Mediterranean Roadlines,Road,FTL and LTL,Spain,Spot + Tender,82,Standard,B
+CAR003,Atlas RoRo Lines,RoRo,Spain-Morocco RoRo,Morocco,Frame Agreement,79,Standard,B
+CAR004,Blue Med Project Cargo,Sea Breakbulk,Breakbulk and heavy lift,Italy,Project Tender,84,Premium,B
+CAR005,NorthSea Container Logistics,Container Sea,Containerized industrial cargo,Netherlands,Frame Agreement,86,Standard,A
+CAR006,EuroIntermodal Connect,Intermodal,Road-sea-road coordination,France,Frame Agreement,81,Standard,A
+CAR007,Gulf Project Forwarding,Sea Breakbulk,Middle East project cargo,United Arab Emirates,Project Tender,76,Premium,C
+CAR008,FastLane Critical Freight,Road,Expedited road,Spain,Spot,91,Premium,C
+CAR009,Maghreb Customs Brokerage,Customs,Morocco and North Africa clearance,Morocco,Frame Agreement,73,Standard,NA
+CAR010,Adriatic Multipurpose Lines,Sea Breakbulk,Mediterranean multipurpose vessels,Greece,Project Tender,80,Standard,B
+CAR011,Northern Yard Trucking,Road,Benelux and Germany heavy trucking,Belgium,Spot + Tender,78,Standard,C
+CAR012,CleanRoute FTL,Road,Lower emission FTL,Spain,Frame Agreement,85,Budget,A

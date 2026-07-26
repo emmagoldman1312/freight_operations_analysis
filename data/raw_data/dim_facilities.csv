@@ -1,0 +1,19 @@
+facility_id,facility_name,facility_type,city,country,latitude,longitude,default_port_id,storage_capacity_tons,heavy_lift_yard
+F001,Zaragoza Distribution Hub,Warehouse,Zaragoza,Spain,41.6488,-0.8891,P001,8200,N
+F002,Madrid Cross Dock,Cross Dock,Madrid,Spain,40.4168,-3.7038,P001,5400,N
+F003,Puertollano Module Yard,Module Yard,Puertollano,Spain,38.6871,-4.1121,P003,12600,Y
+F004,Bilbao Steel Fabricator,Vendor,Bilbao,Spain,43.263,-2.935,P004,7100,Y
+F005,Tarragona Equipment Vendor,Vendor,Tarragona,Spain,41.1189,1.2445,P002,4600,Y
+F006,Sevilla Oversize Staging Yard,Staging Yard,Sevilla,Spain,37.3891,-5.9845,P003,9800,Y
+F007,Sines Energy Project Site,Project Site,Sines,Portugal,37.956,-8.868,P005,3900,Y
+F008,Casablanca Desalination Site,Project Site,Casablanca,Morocco,33.5731,-7.5898,P012,3100,N
+F009,Lyon Fabrication Partner,Vendor,Lyon,France,45.764,4.8357,P009,5200,N
+F010,Milan Valve Plant,Vendor,Milan,Italy,45.4642,9.19,P010,2800,N
+F011,Rotterdam Consolidation Hub,Consolidation Hub,Rotterdam,Netherlands,51.9244,4.4777,P006,9000,Y
+F012,Antwerp EPC Supplier Yard,Vendor,Antwerp,Belgium,51.2194,4.4025,P007,6500,Y
+F013,Valencia Export Depot,Warehouse,Valencia,Spain,39.4699,-0.3763,P001,7600,N
+F014,Cadiz Module Yard,Module Yard,Cadiz,Spain,36.5271,-6.2886,P003,11800,Y
+F015,Tangier Free Zone DC,Warehouse,Tangier,Morocco,35.7595,-5.834,P011,5700,N
+F016,Alexandria Water Project Site,Project Site,Alexandria,Egypt,31.2001,29.9187,P016,2500,N
+F017,Dammam Gas Project Site,Project Site,Dammam,Saudi Arabia,26.4207,50.0888,P018,4400,Y
+F018,Marseille Wind Substation Site,Project Site,Marseille,France,43.2965,5.3698,P009,3200,N

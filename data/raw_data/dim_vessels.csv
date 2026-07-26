@@ -1,0 +1,15 @@
+vessel_id,vessel_name,vessel_type,operator_carrier_id,year_built,dwt_tons,deck_capacity_tons,max_crane_lift_tons,fuel_type
+V001,MV Blue Levant,Multipurpose,CAR004,2011,17800,9600,180,VLSFO
+V002,MV Atlas Star,RoRo,CAR003,2016,12500,5200,0,MGO
+V003,MV NorthSea Aurora,Container,CAR005,2018,38900,0,0,VLSFO
+V004,MV Sirocco Trader,Multipurpose,CAR010,2009,15100,7400,120,VLSFO
+V005,MV Gulf Horizon,Heavy Lift,CAR007,2014,22200,11200,350,VLSFO
+V006,MV Iberian Bridge,RoRo,CAR003,2015,9800,4300,0,MGO
+V007,MV Adriatic Pearl,Multipurpose,CAR010,2012,18400,8900,160,VLSFO
+V008,MV Delta Crane,Heavy Lift,CAR004,2008,26400,12800,500,VLSFO
+V009,MV Orange Current,Container,CAR005,2020,44200,0,0,LNG
+V010,MV Red Strait,RoRo,CAR003,2017,10700,4700,0,MGO
+V011,MV Desert Falcon,Heavy Lift,CAR007,2013,24100,11700,400,VLSFO
+V012,MV Liguria,Multipurpose,CAR004,2010,16800,8100,140,VLSFO
+V013,MV Aegean Link,Container,CAR005,2019,36500,0,0,VLSFO
+V014,MV Triton Bay,Multipurpose,CAR010,2011,17400,8500,180,VLSFO
