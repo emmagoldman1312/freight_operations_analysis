@@ -42,3 +42,10 @@ nrow(datasets$fact_shipments)
 n_distinct(datasets$fact_shipments$shipment_id)
 
 
+datasets_inventory <- tibble(
+  dataset = names(datasets),
+  rows = sapply(datasets, nrow),
+  columns = sapply(datasets, ncol)
+)
+
+datasets_inventory

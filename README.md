@@ -2,49 +2,35 @@
 
 Proyecto personal de análisis de datos aplicado a operaciones de transporte de mercancías y logística de proyectos.
 
-El proyecto utiliza un conjunto de datos sintético para construir un flujo de trabajo completo, desde la preparación y exploración de los datos hasta la visualización, el análisis prescriptivo y el análisis geoespacial de rutas.
+El objetivo es desarrollar un flujo de trabajo completo que combine:
 
-> **Nota:** los datos utilizados son sintéticos y se emplean exclusivamente con fines de aprendizaje y portfolio. No representan el rendimiento real de ninguna empresa, cliente, transportista, puerto o proyecto.
+- análisis exploratorio y descriptivo en **R**;
+- visualización y dashboard en **Power BI**;
+- análisis prescriptivo en **Python**;
+- análisis geoespacial de rutas en **QGIS**.
 
-## Objetivo general
+> **Nota:** todos los datos son sintéticos y se utilizan exclusivamente con fines de aprendizaje y portfolio. No representan operaciones ni resultados reales de empresas, clientes, transportistas, puertos o proyectos.
 
-Desarrollar un caso práctico de análisis de operaciones de transporte que permita estudiar el comportamiento de los envíos, identificar patrones operativos, evaluar el rendimiento logístico y explorar oportunidades de mejora mediante herramientas de análisis de datos, optimización y sistemas de información geográfica.
+## Objetivos
 
-## Objetivos específicos
+- Preparar y validar un modelo de datos de operaciones de transporte.
+- Analizar puntualidad, retrasos, costes, incidencias, emisiones y rendimiento operativo.
+- Explorar diferencias entre proyectos, modos de transporte, rutas, puertos, transportistas y tipos de carga.
+- Construir visualizaciones, indicadores y herramientas de apoyo a la decisión.
+- Mantener un proyecto reproducible, documentado y apto para portfolio.
 
-- Organizar y documentar un modelo de datos orientado al análisis de operaciones de transporte.
-- Preparar, limpiar y validar los datos antes de su análisis.
-- Realizar un análisis exploratorio y descriptivo en **R**.
-- Diseñar un dashboard interactivo en **Power BI** para el seguimiento de indicadores operativos.
-- Desarrollar análisis prescriptivos y modelos de apoyo a la decisión en **Python**.
-- Analizar nodos, tramos y rutas de transporte en **QGIS**.
-- Generar gráficos, mapas y otros resultados reutilizables.
-- Mantener una estructura de proyecto clara, reproducible y adecuada para portfolio.
+## Herramientas
 
-## Preguntas de análisis iniciales
-
-El proyecto podrá evolucionar para responder, entre otras, a preguntas como:
-
-- ¿Qué factores están asociados con los retrasos de los envíos?
-- ¿Qué proyectos, rutas, puertos o transportistas presentan mayores desviaciones?
-- ¿Cómo varían los tiempos de tránsito, costes e incidencias según el tipo de carga?
-- ¿Qué patrones aparecen en los hitos y eventos operativos?
-- ¿Cómo afectan la congestión portuaria y el precio del combustible a las operaciones?
-- ¿Qué rutas o decisiones operativas podrían mejorarse mediante optimización o simulación?
-- ¿Cómo pueden representarse geográficamente los nodos y tramos de transporte?
-
-## Herramientas previstas
-
-- **R / RStudio:** limpieza, análisis exploratorio, estadística descriptiva y visualización.
-- **Power BI:** modelado, indicadores y dashboard interactivo.
-- **Python:** análisis prescriptivo, optimización, simulación y automatización.
-- **QGIS:** análisis espacial, representación de nodos y evaluación de rutas.
-- **Git y GitHub:** control de versiones y publicación del proyecto.
+- **R / RStudio:** importación, calidad, limpieza, EDA y visualización.
+- **Power BI:** modelado, medidas y dashboard.
+- **Python:** optimización, simulación y análisis prescriptivo.
+- **QGIS:** representación y análisis de nodos y rutas.
+- **Git / GitHub:** control de versiones y publicación.
 
 ## Estructura del proyecto
 
 ```text
-15_Freight_Operations_Analysis/
+Freight_Operations_Analysis/
 │
 ├── dashboard/
 │   └── Archivos y recursos utilizados para desarrollar el dashboard en Power BI.
@@ -72,18 +58,16 @@ El proyecto podrá evolucionar para responder, entre otras, a preguntas como:
 │       └── Mapas y resultados geoespaciales exportados.
 │
 ├── python/
-│   └── Scripts de Python y un README o archivo TXT con los objetivos
-│       específicos de esta fase del proyecto.
+│   └── Scripts de Python y documentación específica del análisis prescriptivo.
 │
 ├── qgis/
-│   └── Archivos de proyecto, procesos o scripts de QGIS y un README o
-│       archivo TXT con los objetivos específicos del análisis geoespacial.
+│   └── Archivos de proyecto, procesos, scripts y documentación del análisis geoespacial.
 │
 ├── R/
 │   ├── 01_Import.R
 │   │   └── Importación automatizada y comprobación inicial de los archivos CSV.
-│   └── README.md o archivo TXT
-│       └── Objetivos específicos y documentación de la fase de análisis en R.
+│   └── 02_Data_Quality.R
+│       └── Diagnóstico estructural, relacional y lógico de los datos originales.
 │
 ├── .gitignore
 │   └── Reglas para excluir del control de versiones archivos temporales,
@@ -93,81 +77,150 @@ El proyecto podrá evolucionar para responder, entre otras, a preguntas como:
 │   └── Archivo de proyecto de RStudio.
 │
 └── README.md
-    └── Descripción general, objetivos y estructura del proyecto.
+    └── Descripción general, estado, metodología y próximos pasos del proyecto.
 ```
 
 ## Modelo de datos
 
-El modelo está planteado alrededor de una tabla central de envíos y varias tablas relacionadas con tramos de ruta, eventos, incidencias e indicadores externos.
+El modelo se organiza alrededor de `fact_shipments`, con un registro por envío.
 
-De forma general, incluye:
+Tablas de detalle:
 
-- Una tabla principal con un registro por envío.
-- Tablas de detalle para tramos de ruta, hitos operativos e incidencias.
-- Dimensiones de calendario, proyectos, instalaciones, puertos, transportistas, buques y tipos de carga.
-- Datos auxiliares sobre congestión portuaria y precios del combustible.
-- Archivos geográficos con nodos y tramos de ruta preparados para su análisis en QGIS.
+- `fact_route_legs`: tramos de cada envío.
+- `fact_events`: hitos y eventos operativos.
+- `fact_incidents`: incidencias asociadas a los envíos.
+- `fact_port_congestion`: indicadores mensuales por puerto.
+- `fact_fuel_prices`: indicadores mensuales de combustible.
 
-La definición detallada de las relaciones se encuentra en [`docs/relationships.md`](docs/relationships.md).
+Dimensiones:
 
-## Flujo de trabajo previsto
+- calendario;
+- proyectos;
+- instalaciones;
+- puertos;
+- transportistas;
+- buques;
+- tipos de carga.
 
-1. Revisar el diccionario y las relaciones entre tablas.
-2. Conservar los datos originales en `data/raw_data/`.
-3. Limpiar, transformar y validar los datos.
-4. Guardar los resultados preparados en `data/processed_data/`.
-5. Realizar el análisis exploratorio y descriptivo en R.
-6. Construir el modelo y el dashboard en Power BI.
-7. Desarrollar análisis prescriptivos en Python.
-8. Analizar nodos y rutas en QGIS.
-9. Exportar gráficos y mapas a `output/`.
-10. Documentar los resultados, decisiones y limitaciones.
+Las relaciones están documentadas en [`docs/relationships.md`](docs/relationships.md).
 
-## Desarrollo del proyecto
+## Desarrollo realizado
 
-### Paso 1 en R: importación y comprobación inicial de los datos
+### 1. Importación de datos
 
 **Script:** [`R/01_Import.R`](R/01_Import.R)
 
-El primer script del proyecto prepara el entorno de trabajo y realiza una revisión inicial de los archivos almacenados en `data/raw_data/`.
+El script:
 
-#### Objetivos
+- localiza los CSV de `data/raw_data/`;
+- construye rutas relativas con `here`;
+- importa automáticamente los archivos con `read_csv`;
+- guarda las 13 tablas en la lista nombrada `datasets`;
+- revisa problemas de lectura y la estructura inicial de los datos.
 
-- Importar de forma automatizada todos los archivos CSV de datos originales.
-- Evitar rutas absolutas para que el proyecto pueda ejecutarse en otros equipos.
-- Centralizar las tablas importadas en una estructura única y fácil de consultar.
-- Detectar posibles problemas de lectura o interpretación de los archivos.
-- Revisar la estructura y los nombres de las variables de cada tabla.
-- Comprobar que `shipment_id` funciona como identificador único en la tabla principal de envíos.
+Los archivos originales no se modifican.
 
-#### Proceso realizado
+### 2. Evaluación de calidad
 
-1. Se cargan los paquetes `tidyverse` y `here`.
-2. `here()` construye la ruta relativa a `data/raw_data/` desde la raíz del proyecto.
-3. `list.files()` localiza todos los archivos con extensión `.csv`.
-4. `lapply()` y `read_csv()` importan cada archivo como un tibble.
-5. Cada tabla recibe como nombre el nombre original de su archivo, sin la extensión `.csv`.
-6. `problems()` comprueba si se han producido errores o advertencias durante la importación.
-7. Se revisan los nombres de las columnas de todas las tablas.
-8. Se visualizan inicialmente las principales tablas dimensionales:
-   - proyectos;
-   - puertos;
-   - transportistas;
-   - instalaciones;
-   - tipos de carga;
-   - buques.
-9. En `fact_shipments` se compara:
-   - el número total de filas, mediante `nrow()`;
-   - el número de valores únicos de `shipment_id`, mediante `n_distinct()`.
+**Script:** [`R/02_Data_Quality.R`](R/02_Data_Quality.R)
 
-Si ambos resultados coinciden, se obtiene una primera evidencia de que la granularidad de `fact_shipments` es de **una fila por envío**.
+El script realiza un diagnóstico general antes de limpiar o transformar los datos.
 
-#### Resultado del paso
+Se revisan:
 
-El script genera en memoria el objeto `datasets`, una lista nombrada que contiene todas las tablas importadas. Este objeto servirá como punto de partida para las siguientes fases de revisión de calidad, limpieza, transformación y análisis exploratorio.
+- problemas de importación;
+- valores ausentes;
+- cadenas vacías y espacios sobrantes;
+- claves primarias;
+- claves de negocio;
+- claves foráneas e integridad referencial;
+- variables binarias con valores `Y` y `N`;
+- ausencias según el modo de transporte;
+- continuidad y coherencia del calendario;
+- reglas básicas de proyectos e instalaciones.
 
-En este paso todavía no se modifican los datos originales ni se generan archivos en `data/processed_data/`.
+#### Resultados principales
+
+- No se detectaron problemas de importación.
+- Las claves primarias revisadas son completas y únicas.
+- No se encontraron duplicados en las claves de negocio comprobadas.
+- No se detectaron referencias huérfanas entre las tablas.
+- No se encontraron problemas generales de formato en variables de texto.
+- Las variables binarias revisadas contienen únicamente los valores esperados.
+- La dimensión calendario contiene 731 fechas continuas entre 2024-01-01 y 2025-12-31.
+- Las reglas básicas de fechas, porcentajes, prioridades, coordenadas y capacidades no mostraron errores.
+
+#### Valores ausentes relevantes
+
+En `fact_shipments` se identificaron:
+
+- 132 `origin_port_id` ausentes;
+- 132 `destination_port_id` ausentes;
+- 311 `vessel_id` ausentes.
+
+Interpretación:
+
+- Los 132 envíos por carretera no requieren puertos ni buques. Son ausencias estructurales esperadas.
+- Los 179 envíos intermodales no tienen `vessel_id`.
+- Los 179 tramos `Container Sea` de esos envíos intermodales tampoco tienen buque asignado.
+
+La ausencia de buque en las operaciones intermodales queda documentada como una limitación pendiente de revisión. No se realizará ninguna imputación sin una regla que la justifique.
+
+#### Calendario ISO
+
+La columna `week` utiliza numeración ISO.
+
+Se detectaron cinco fechas de final de año en las que el año natural y el año ISO son diferentes. No son errores, pero será necesario utilizar conjuntamente `iso_year` e `iso_week` en los análisis semanales.
+
+## Aspectos pendientes de revisión
+
+- Confirmar la interpretación de los buques ausentes en operaciones intermodales.
+- Mantener los `NA` estructurales de los envíos por carretera.
+- Validar que las fechas de las tablas operativas estén cubiertas por `dim_calendar`.
+- Revisar reglas de coherencia entre fechas planificadas y reales, retrasos, estado y puntualidad.
+- Validar costes, pesos, dimensiones, emisiones, daños y reclamaciones.
+- Confirmar la granularidad de las claves de negocio con el diccionario de datos.
+- Revisar en QGIS la coherencia entre coordenadas, ciudades y países.
+
+## Próximos pasos
+
+### 3. Limpieza y preparación en R
+
+Crear `R/03_Data_Cleaning.R` para:
+
+- trabajar sobre copias de los datos originales;
+- conservar las ausencias estructurales;
+- crear variables temporales e indicadores derivados;
+- incorporar `iso_year`, `iso_week` e `iso_year_week`;
+- preparar las tablas necesarias para el análisis;
+- exportar los resultados a `data/processed_data/`.
+
+### 4. Análisis exploratorio en R
+
+Analizar:
+
+- volumen de envíos;
+- puntualidad y retrasos;
+- tiempos de tránsito;
+- costes y emisiones;
+- incidencias, daños y reclamaciones;
+- rendimiento por proyecto, modo, ruta, puerto y transportista.
+
+### 5. Fases posteriores
+
+- Construcción del dashboard en Power BI.
+- Análisis prescriptivo y optimización en Python.
+- Representación y análisis de rutas en QGIS.
+- Documentación de resultados y conclusiones.
 
 ## Estado del proyecto
 
-Proyecto en fase inicial de organización, documentación y preparación de los datos. La estructura, los objetivos específicos y las herramientas podrán ajustarse a medida que avance el análisis.
+- [x] Estructura inicial.
+- [x] Modelo de datos preliminar.
+- [x] Importación automatizada.
+- [x] Evaluación inicial de calidad.
+- [ ] Limpieza y preparación.
+- [ ] Análisis exploratorio en R.
+- [ ] Dashboard en Power BI.
+- [ ] Análisis prescriptivo en Python.
+- [ ] Análisis geoespacial en QGIS.
