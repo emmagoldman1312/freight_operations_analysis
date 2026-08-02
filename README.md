@@ -53,7 +53,20 @@ Freight_Operations_Analysis/
 │
 ├── output/
 │   ├── figures/
-│   │   └── Gráficos y visualizaciones exportados.
+│   │   ├── 04_EDA_hist.png
+│   │   │   └── Histogramas de las principales variables numéricas.
+│   │   ├── 04_EDA_boxplot.png
+│   │   │   └── Boxplots y revisión visual de valores extremos.
+│   │   ├── 04_EDA_scatterplot.png
+│   │   │   └── Relaciones entre el coste logístico y variables operativas.
+│   │   ├── 04_EDA_project-performance.png
+│   │   │   └── Puntualidad real frente al objetivo por proyecto.
+│   │   ├── 04_EDA_lineplot.png
+│   │   │   └── Evolución mensual del rendimiento operativo.
+│   │   ├── 04_EDA_lineplot_port_congestion.png
+│   │   │   └── Evolución mensual de la congestión portuaria.
+│   │   └── 04_EDA_lineplot_fuel_prices.png
+│   │       └── Evolución mensual de los precios de combustible.
 │   └── maps/
 │       └── Mapas y resultados geoespaciales exportados.
 │
@@ -66,8 +79,12 @@ Freight_Operations_Analysis/
 ├── R/
 │   ├── 01_Import.R
 │   │   └── Importación automatizada y comprobación inicial de los archivos CSV.
-│   └── 02_Data_Quality.R
-│       └── Diagnóstico estructural, relacional y lógico de los datos originales.
+│   ├── 02_Data_Quality.R
+│   │   └── Diagnóstico estructural, relacional y lógico de los datos originales.
+│   ├── 03_Data_Cleaning.R
+│   │   └── Limpieza, preparación, validación y exportación de los datos procesados.
+│   └── 04_EDA.R
+│       └── Análisis exploratorio, descriptivo y visual de las operaciones.
 │
 ├── .gitignore
 │   └── Reglas para excluir del control de versiones archivos temporales,
@@ -172,46 +189,190 @@ La columna `week` utiliza numeración ISO.
 
 Se detectaron cinco fechas de final de año en las que el año natural y el año ISO son diferentes. No son errores, pero será necesario utilizar conjuntamente `iso_year` e `iso_week` en los análisis semanales.
 
+### 3. Limpieza y preparación de datos
+
+**Script:** [`R/03_Data_Cleaning.R`](R/03_Data_Cleaning.R)
+
+El script prepara los datos para las siguientes fases sin modificar los archivos originales. Para ello:
+
+- vuelve a importar los datos mediante `R/01_Import.R`;
+- crea `clean_datasets` como copia independiente de la lista original `datasets`;
+- incorpora `iso_year` e `iso_year_week` a `dim_calendar` para permitir análisis semanales correctos;
+- convierte las variables binarias de `Y` y `N` a valores lógicos `TRUE` y `FALSE`;
+- conserva sin imputar los valores ausentes estructurales o no justificables;
+- valida que no se hayan añadido ni eliminado filas;
+- comprueba que el único cambio estructural sea la incorporación de dos columnas a `dim_calendar`;
+- exporta las 13 tablas limpias a `data/processed_data/` y verifica que todos los archivos se hayan generado.
+
+#### Resultados principales
+
+- Las 731 fechas de `dim_calendar` tienen un `iso_year` y un `iso_year_week` válidos, sin valores ausentes ni cálculos incorrectos.
+- Las 14 variables binarias revisadas se convirtieron correctamente a tipo lógico, manteniendo los mismos recuentos y valores ausentes.
+- Las 13 tablas conservaron exactamente el mismo número de filas que los datos originales.
+- `dim_calendar` incorporó únicamente las dos columnas previstas; no se produjeron otros cambios estructurales.
+- La validación estructural final fue correcta y se exportaron los 13 archivos CSV esperados.
+
+### 4. Análisis exploratorio de datos
+
+**Script:** [`R/04_EDA.R`](R/04_EDA.R)
+
+El análisis exploratorio utiliza las 13 tablas limpias almacenadas en `data/processed_data/` y mantiene separadas las distintas unidades de análisis:
+
+- un registro por envío en `fact_shipments`;
+- un registro por tramo en `fact_route_legs`;
+- un registro por evento en `fact_events`;
+- un registro por incidencia en `fact_incidents`;
+- un registro por puerto y mes en `fact_port_congestion`;
+- un registro por mes en `fact_fuel_prices`.
+
+El script:
+
+- crea tablas analíticas enriquecidas mediante uniones con las dimensiones;
+- resume el volumen y el rendimiento general de las operaciones;
+- estudia distribuciones numéricas, asimetrías y posibles valores atípicos;
+- analiza relaciones mediante correlaciones de Spearman;
+- compara puntualidad, retrasos, costes, daños y emisiones por proyecto, modo, transportista, familia de carga, nivel de riesgo y nivel de servicio;
+- analiza incidencias, causas raíz, gravedad, localización, costes y reclamaciones;
+- revisa la estructura y el rendimiento de los tramos de ruta;
+- estudia la cobertura y el estado de los eventos operativos;
+- analiza congestión portuaria, huelgas y evolución mensual;
+- compara precios de combustible con los recargos aplicados;
+- descompone el coste logístico total;
+- compara la intensidad de emisiones por tonelada-kilómetro.
+
+El script se ejecutó completo desde una sesión limpia sin errores. Los avisos obtenidos se deben únicamente a que algunos paquetes fueron compilados con una versión de R ligeramente posterior.
+
+#### Datos preparados para Power BI
+
+No es necesario exportar desde `R/04_EDA.R` las tablas resumen ni las tablas enriquecidas creadas durante el EDA.
+
+Las 13 tablas limpias ya fueron exportadas por `R/03_Data_Cleaning.R` a:
+
+```text
+data/processed_data/
+```
+
+Estas tablas serán la fuente principal para las siguientes fases del proyecto. Las tablas agregadas del EDA se mantienen como resultados analíticos y de validación, pero no se utilizarán como sustituto del modelo relacional.
+
+## Principales hallazgos del EDA
+
+### Operaciones generales
+
+- Se analizaron 900 envíos correspondientes a 7 proyectos, 11 transportistas utilizados y 10 tipos de carga.
+- El volumen acumulado fue de 23.085 toneladas y 2.184.346 kilómetros.
+- El coste logístico total fue de 11.665.158 €, con un coste medio aproximado de 12.961 € por envío.
+- La tasa global de puntualidad fue del 79,3 %.
+- Se registraron 186 entregas fuera de plazo y una tasa de daños del 4,11 %.
+- Las principales variables económicas, físicas y ambientales presentan distribuciones asimétricas, por lo que se priorizaron medianas para realizar comparaciones entre grupos.
+
+### Costes y rendimiento
+
+- El coste logístico muestra sus relaciones más fuertes con las emisiones absolutas, el peso, el volumen, el nivel de riesgo y la distancia.
+- El transporte marítimo Breakbulk representa 470 envíos y concentra operaciones de mayor peso, coste y complejidad.
+- El transporte por carretera presenta la mejor puntualidad, pero también la mayor intensidad de emisiones por tonelada-kilómetro.
+- Ninguno de los siete proyectos alcanza su objetivo de puntualidad.
+- Dammam presenta la mayor desviación respecto a su objetivo, con una diferencia de -18,17 puntos porcentuales.
+- Las comparaciones entre transportistas deben realizarse dentro de modos equivalentes, ya que varios modos están asociados a un único transportista.
+- El nivel de servicio `Standard` obtiene la mejor puntualidad, mientras que `Critical` presenta el mayor coste mediano y la menor puntualidad. Este resultado debe interpretarse como una posible concentración de operaciones más complejas y urgentes, no como un efecto causal del nivel de servicio.
+
+### Carga, riesgo y emisiones
+
+- La carga sobredimensionada se asocia con un mayor coste mediano y una menor puntualidad.
+- Las operaciones heavy lift presentan costes claramente superiores y una mayor exposición a daños.
+- Los envíos de riesgo medio muestran peor puntualidad y mayores retrasos que los de riesgo bajo.
+- La categoría de riesgo alto solo contiene un envío y no permite extraer conclusiones generales.
+- La intensidad mediana de emisiones es mayor en carretera: 0,095 kg CO₂e por tonelada-kilómetro.
+- `Container Sea` registra la menor intensidad mediana: 0,0215 kg CO₂e por tonelada-kilómetro.
+
+### Incidencias
+
+- Se registraron 55 incidencias, equivalentes al 6,11 % de los envíos.
+- El 69,1 % de las incidencias se clasificó como prevenible.
+- Las incidencias generaron 692 horas de retraso, 271.966 € de coste directo y 61.575 € en reclamaciones.
+- Los retrasos y los problemas de aduanas o documentación son los tipos más frecuentes.
+- `Customs hold`, `Carrier capacity`, `Road permit delay` y `Port congestion` son causas operativas prioritarias.
+- Las incidencias en proyecto presentan el mayor retraso mediano y el mayor importe acumulado de reclamaciones.
+- Las incidencias en puerto tienen la mayor proporción prevenible.
+
+### Tramos y eventos
+
+- Los 900 envíos disponen de tramos de ruta, con 2.436 tramos en total y una mediana de 3 tramos por envío.
+- El modo `Road` aparece en todos los envíos como tramo inicial, final o recorrido completo.
+- `Customs hold` y `Carrier capacity` concentran el mayor impacto temporal entre las causas específicas de retraso de los tramos.
+- El valor `None` en `delay_reason` no implica necesariamente ausencia de retraso; puede representar una causa no registrada.
+- Se analizaron 5.772 eventos operativos, con una media de 6,41 eventos por envío.
+- Los eventos portuarios aparecen en el 85,3 % de los envíos y no aplican a los 132 envíos realizados únicamente por carretera.
+- Los 186 eventos clasificados como retrasados corresponden exclusivamente a `Delivery completed` y se asignan al transportista. Esta estructura limita la atribución detallada de responsabilidad en hitos intermedios.
+
+### Puertos y combustible
+
+- La tabla de congestión forma un panel completo de 18 puertos durante 24 meses.
+- La mediana global del índice de congestión es 40, la espera mediana de buques es de 9,2 horas y la utilización mediana de atraques es del 70,1 %.
+- Casablanca, Alexandria y Dammam presentan los niveles habituales de congestión más elevados.
+- El índice de congestión mantiene una relación fuerte con la utilización de atraques y con las horas de espera de los buques.
+- Solo existen cuatro registros puerto-mes con huelga, por lo que sus diferencias deben interpretarse con cautela.
+- La evolución mensual de la congestión fluctúa sin una tendencia sostenida ni una estacionalidad clara.
+- El recargo de combustible muestra una relación positiva moderada con el precio del diésel en carretera y con el MGO en operaciones marítimas.
+- La relación entre el recargo marítimo y el VLSFO es débil.
+
+### Composición del coste
+
+- Flete: 75,30 %.
+- Costes portuarios: 10,80 %.
+- Recargo de combustible: 8,42 %.
+- Costes aduaneros: 5,52 %.
+
+## Visualizaciones generadas
+
+Las visualizaciones creadas durante el EDA se encuentran en `output/figures/`.
+
+### Distribución de variables numéricas
+
+![Histogramas de las principales variables numéricas](output/figures/04_EDA_hist.png)
+
+### Identificación visual de valores extremos
+
+![Boxplots de las principales variables numéricas](output/figures/04_EDA_boxplot.png)
+
+### Relaciones con el coste logístico
+
+![Relaciones entre el coste y las principales variables operativas](output/figures/04_EDA_scatterplot.png)
+
+### Puntualidad por proyecto
+
+![Puntualidad real frente al objetivo por proyecto](output/figures/04_EDA_project-performance.png)
+
+### Evolución mensual del rendimiento operativo
+
+![Evolución mensual de envíos, puntualidad, retraso y coste](output/figures/04_EDA_lineplot.png)
+
+### Evolución de la congestión portuaria
+
+![Evolución mensual de la congestión portuaria](output/figures/04_EDA_lineplot_port_congestion.png)
+
+### Evolución de los precios de combustible
+
+![Evolución mensual de los precios de combustible](output/figures/04_EDA_lineplot_fuel_prices.png)
+
 ## Aspectos pendientes de revisión
 
 - Confirmar la interpretación de los buques ausentes en operaciones intermodales.
 - Mantener los `NA` estructurales de los envíos por carretera.
 - Validar que las fechas de las tablas operativas estén cubiertas por `dim_calendar`.
-- Revisar reglas de coherencia entre fechas planificadas y reales, retrasos, estado y puntualidad.
-- Validar costes, pesos, dimensiones, emisiones, daños y reclamaciones.
 - Confirmar la granularidad de las claves de negocio con el diccionario de datos.
 - Revisar en QGIS la coherencia entre coordenadas, ciudades y países.
+- Mantener cautela al interpretar categorías con pocos registros, especialmente el nivel de riesgo alto, las huelgas y algunos modos con bajo volumen mensual.
+- Tratar los valores `None` de las causas como ausencia de una causa específica registrada, no necesariamente como ausencia de retraso.
+- Revisar la interpretación operativa del nivel de servicio `Critical`, que presenta mayor coste y menor puntualidad.
+- Evitar atribuir causalidad a las relaciones observadas durante el EDA.
 
 ## Próximos pasos
 
-### 3. Limpieza y preparación en R
-
-Crear `R/03_Data_Cleaning.R` para:
-
-- trabajar sobre copias de los datos originales;
-- conservar las ausencias estructurales;
-- crear variables temporales e indicadores derivados;
-- incorporar `iso_year`, `iso_week` e `iso_year_week`;
-- preparar las tablas necesarias para el análisis;
-- exportar los resultados a `data/processed_data/`.
-
-### 4. Análisis exploratorio en R
-
-Analizar:
-
-- volumen de envíos;
-- puntualidad y retrasos;
-- tiempos de tránsito;
-- costes y emisiones;
-- incidencias, daños y reclamaciones;
-- rendimiento por proyecto, modo, ruta, puerto y transportista.
-
-### 5. Fases posteriores
-
-- Construcción del dashboard en Power BI.
-- Análisis prescriptivo y optimización en Python.
-- Representación y análisis de rutas en QGIS.
-- Documentación de resultados y conclusiones.
+- Utilizar las tablas de `data/processed_data/` para iniciar el desarrollo del dashboard en Power BI.
+- Validar que los principales resultados obtenidos en Power BI coincidan con los resultados del EDA en R.
+- Desarrollar el análisis prescriptivo y de optimización en Python.
+- Representar y analizar nodos, puertos y rutas en QGIS.
+- Incorporar progresivamente nuevos resultados, conclusiones y visualizaciones a la documentación del proyecto.
 
 ## Estado del proyecto
 
@@ -219,8 +380,8 @@ Analizar:
 - [x] Modelo de datos preliminar.
 - [x] Importación automatizada.
 - [x] Evaluación inicial de calidad.
-- [ ] Limpieza y preparación.
-- [ ] Análisis exploratorio en R.
+- [x] Limpieza y preparación.
+- [x] Análisis exploratorio en R.
 - [ ] Dashboard en Power BI.
 - [ ] Análisis prescriptivo en Python.
 - [ ] Análisis geoespacial en QGIS.
