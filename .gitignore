@@ -4,7 +4,6 @@
 .Ruserdata
 .Renviron
 data/processed_data/
-output/
 python/venv/
 __pycache__/
 *.pyc
