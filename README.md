@@ -33,7 +33,8 @@ El objetivo es desarrollar un flujo de trabajo completo que combine:
 Freight_Operations_Analysis/
 │
 ├── dashboard/
-│   └── Archivos y recursos utilizados para desarrollar el dashboard en Power BI.
+│   └── 2024-2025_Freight-Operations-Analysis.pbix
+│       └── Modelo semántico y desarrollo del dashboard en Power BI.
 │
 ├── data/
 │   ├── external_sources/
@@ -328,15 +329,15 @@ Las visualizaciones creadas durante el EDA se encuentran en `output/figures/`.
 
 ### Distribución de variables numéricas
 
-![Histogramas de las principales variables numéricas](output/figures/04_EDA_hist.png)
+![Histogramas de las principales variables numéricas](output/figures/04_EDA_histograms.png)
 
 ### Identificación visual de valores extremos
 
-![Boxplots de las principales variables numéricas](output/figures/04_EDA_boxplot.png)
+![Boxplots de las principales variables numéricas](output/figures/04_EDA_boxplots.png)
 
 ### Relaciones con el coste logístico
 
-![Relaciones entre el coste y las principales variables operativas](output/figures/04_EDA_scatterplot.png)
+![Relaciones entre el coste y las principales variables operativas](output/figures/04_EDA_scatterplots.png)
 
 ### Puntualidad por proyecto
 
@@ -344,7 +345,7 @@ Las visualizaciones creadas durante el EDA se encuentran en `output/figures/`.
 
 ### Evolución mensual del rendimiento operativo
 
-![Evolución mensual de envíos, puntualidad, retraso y coste](output/figures/04_EDA_lineplot.png)
+![Evolución mensual de envíos, puntualidad, retraso y coste](output/figures/04_EDA_lineplots.png)
 
 ### Evolución de la congestión portuaria
 
@@ -354,11 +355,65 @@ Las visualizaciones creadas durante el EDA se encuentran en `output/figures/`.
 
 ![Evolución mensual de los precios de combustible](output/figures/04_EDA_lineplot_fuel_prices.png)
 
+## Modelado en Power BI
+
+### 5. Preparación y modelado del modelo semántico
+
+**Archivo:** [`dashboard/2024-2025_Freight-Operations-Analysis.pbix`](dashboard/2024-2025_Freight-Operations-Analysis.pbix)
+
+Tras completar la preparación y el EDA en R, se inició el desarrollo del modelo semántico en Power BI utilizando las tablas procesadas como fuente. La `dim_calendar` generada durante la fase de R no se incorporó al modelo de Power BI; en su lugar, se creó una nueva tabla calculada `dim_calendar` para cubrir de forma continua todo el horizonte operativo entre 2023-01-01 y 2026-12-31. La tabla se marcó como tabla de fechas e incluye atributos de año, trimestre, mes, día de la semana y calendario ISO.
+
+El modelo de Power BI contiene actualmente 16 tablas:
+
+- tablas de hechos: `fact_shipments`, `fact_route_legs`, `fact_events`, `fact_incidents`, `fact_port_congestion` y `fact_fuel_prices`;
+- dimensiones principales: `dim_projects`, `dim_facilities`, `dim_ports` y `dim_cargo_types`;
+- dimensiones de rol para transportistas: `dim_primary_carriers` y `dim_leg_carriers`;
+- dimensiones de rol para buques: `dim_primary_vessels` y `dim_leg_vessels`;
+- dimensión temporal: `dim_calendar`;
+- tabla `Medidas`, destinada a centralizar las medidas DAX del dashboard.
+
+El desdoblamiento de transportistas y buques permite distinguir el transportista o buque principal del envío de los asignados a cada tramo y evita caminos de filtrado ambiguos entre `fact_shipments` y `fact_route_legs`.
+
+#### Relaciones del modelo
+
+El modelado sigue principalmente relaciones **uno a varios (1:*)** con dirección de filtro única desde las dimensiones hacia las tablas de hechos.
+
+Se establecieron como relaciones principales:
+
+- `dim_projects` y `dim_cargo_types` con `fact_shipments`;
+- `dim_primary_carriers` y `dim_primary_vessels` con `fact_shipments`;
+- `dim_leg_carriers` y `dim_leg_vessels` con `fact_route_legs`;
+- `fact_shipments` con `fact_route_legs`, `fact_events` y `fact_incidents` mediante `shipment_id`;
+- `dim_ports` con `fact_port_congestion`;
+- `dim_calendar` con las tablas que requieren análisis temporal.
+
+Cuando una misma dimensión puede representar varios roles, se mantiene una única relación activa por ruta de filtrado y las alternativas se conservan inactivas. En particular:
+
+- las relaciones de destino de instalaciones y puertos se utilizan como relaciones principales y las correspondientes relaciones de origen se mantienen inactivas;
+- `actual_delivery_date` se utiliza como relación temporal principal de `fact_shipments`;
+- las demás fechas del ciclo del envío se mantienen disponibles para análisis específicos mediante relaciones inactivas y `USERELATIONSHIP()`;
+- las fechas alternativas de eventos, incidencias y tramos se mantienen controladas para evitar crear rutas activas paralelas a través de `fact_shipments`;
+- `month_start` permite relacionar `fact_port_congestion` y `fact_fuel_prices` con la dimensión calendario a su granularidad mensual.
+
+#### Simplificación de la capa semántica
+
+Para mejorar la claridad del panel de campos y reducir errores durante la construcción de visuales:
+
+- se ocultan claves primarias y foráneas de uso exclusivamente técnico cuando existe un atributo descriptivo equivalente;
+- las fechas utilizadas para relaciones se mantienen en las tablas de hechos, pero el calendario se utiliza como referencia temporal para ejes, filtros y segmentadores;
+- se ocultan columnas auxiliares de ordenación de `dim_calendar`;
+- las coordenadas y geometrías destinadas principalmente a QGIS no se exponen como campos de uso habitual en el dashboard;
+- se mantienen visibles los identificadores y atributos con utilidad operativa, como `shipment_id`, así como las variables necesarias para analizar costes, puntualidad, retrasos, riesgo, incidencias y emisiones.
+
+#### Estado de esta fase
+
+La estructura del modelo semántico, la dimensión calendario, las dimensiones de rol y las relaciones principales están preparadas. La página inicial `Freight Operations Control Tower` está creada y el siguiente bloque de trabajo corresponde a la construcción y validación de medidas DAX y al desarrollo de los visuales del dashboard.
+
 ## Aspectos pendientes de revisión
 
 - Confirmar la interpretación de los buques ausentes en operaciones intermodales.
 - Mantener los `NA` estructurales de los envíos por carretera.
-- Validar que las fechas de las tablas operativas estén cubiertas por `dim_calendar`.
+- Mantener la cobertura temporal 2023-2026 de `dim_calendar` si se incorporan nuevas fuentes o se amplía el horizonte de datos.
 - Confirmar la granularidad de las claves de negocio con el diccionario de datos.
 - Revisar en QGIS la coherencia entre coordenadas, ciudades y países.
 - Mantener cautela al interpretar categorías con pocos registros, especialmente el nivel de riesgo alto, las huelgas y algunos modos con bajo volumen mensual.
@@ -368,8 +423,10 @@ Las visualizaciones creadas durante el EDA se encuentran en `output/figures/`.
 
 ## Próximos pasos
 
-- Utilizar las tablas de `data/processed_data/` para iniciar el desarrollo del dashboard en Power BI.
-- Validar que los principales resultados obtenidos en Power BI coincidan con los resultados del EDA en R.
+- Crear y organizar las medidas DAX necesarias en la tabla `Medidas`.
+- Desarrollar las páginas y visualizaciones del dashboard `Freight Operations Control Tower`.
+- Validar que los principales KPIs y resultados obtenidos en Power BI coincidan con los resultados del EDA en R.
+- Revisar el comportamiento de las relaciones inactivas mediante medidas con `USERELATIONSHIP()` cuando sean necesarias.
 - Desarrollar el análisis prescriptivo y de optimización en Python.
 - Representar y analizar nodos, puertos y rutas en QGIS.
 - Incorporar progresivamente nuevos resultados, conclusiones y visualizaciones a la documentación del proyecto.
@@ -382,6 +439,7 @@ Las visualizaciones creadas durante el EDA se encuentran en `output/figures/`.
 - [x] Evaluación inicial de calidad.
 - [x] Limpieza y preparación.
 - [x] Análisis exploratorio en R.
-- [ ] Dashboard en Power BI.
+- [x] Modelado semántico en Power BI.
+- [ ] Medidas DAX y dashboard en Power BI.
 - [ ] Análisis prescriptivo en Python.
 - [ ] Análisis geoespacial en QGIS.
